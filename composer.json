@@ -1,0 +1,20 @@
+{
+  "name": "dappcrypto/cpay",
+  "description": "DApp Crypto payment gateway SDK without KYC/KYB. Supports MetaMask and Trust Wallet. Payments in USDT, USDC, ETH, BNB, BTC.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "DAppCrypto",
+      "email": "info@dappcrypto.io",
+      "homepage": "https://github.com/dappcrypto"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "cpay\\": "src/"
+    }
+  },
+  "minimum-stability": "stable",
+  "require": { "php": ">=8.0"}
+}
