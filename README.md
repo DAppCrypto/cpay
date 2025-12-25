@@ -119,6 +119,13 @@ Failure to follow these rules may result in **loss of funds**.
 
 ---
 
+## Versions
+
+- [v1.0.1](https://github.com/DAppCrypto/cpay/releases/tag/v1.0.1) - The success page example has been updated.
+- [v1.0.0](https://github.com/DAppCrypto/cpay/releases/tag/v1.0.0) - PHP SDK for accepting cryptocurrency payments
+
+---
+
 ## Requirements
 
 - PHP **>= 8.0**

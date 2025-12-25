@@ -14,16 +14,14 @@ use cpay\CPay;
 // TODO Create authorization for the user
 
 $postData = $_REQUEST;
-if(empty($postData['aRecipient'])){
-    echo 'aRecipient is empty ';
-}
 if(empty($postData['nOrder'])){
     echo 'nOrder is empty ';
 }
 
+$aRecipient='0x...';
+
 // Get Order Data
-if(!empty($postData['aRecipient']) && !empty($postData['nOrder'])){
-    $aRecipient = $postData['aRecipient'];
+if(!empty($postData['nOrder'])){
     $nOrder = $postData['nOrder'];
 
     $OrderData = CPay::instance()->getOrderData($aRecipient, $nOrder);
