@@ -113,7 +113,7 @@ class sPay
     public function getAddressByPrivateKey(string $PrivateKey): array
     {
         try{
-            $AddressAccount = sSecp256k1::addressByPrivateKey($PrivateKey);
+            $AddressAccount = sSecp256k1::addressFromPrivateKey($PrivateKey);
             return ['error'=> 0, 'data'=> 'Success', 'AddressAccount'=>$AddressAccount];
         } catch (\Exception $e) {
             return ['error'=> 1, 'data'=> 'exception: '.$e->getMessage()];

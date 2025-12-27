@@ -139,4 +139,20 @@ class sUtils
 
         return ['error' => 0, 'data' => 'ok'];
     }
+
+    public static function pubKeyToAddress(string $pubKey): string
+    {
+        if (strlen($pubKey) !== 65 || $pubKey[0] !== "\x04") {
+            throw new \Exception('Invalid public key');
+        }
+
+        $hash = sKeccak256::hash(substr($pubKey, 1));
+
+        return '0x' . substr(bin2hex($hash), 24);
+    }
+
+    public static function hex2bin32_2(string $hex): string
+    {
+        return str_pad(hex2bin($hex), 32, "\x00", STR_PAD_LEFT);
+    }
 }

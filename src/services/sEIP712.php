@@ -48,17 +48,26 @@ class sEIP712
 
     public static function sign(string $privateKey, string $hashBin): string
     {
-        return sSecp256k1::sign(
-            self::digest($hashBin),
-            $privateKey
-        );
+        // EIP-712 digest (32 bytes)
+        $digest = self::digest($hashBin);
+        // binary signature (65 bytes r||s||v)
+        $sigBin = sSecp256k1::sign($digest, $privateKey);
+        // ETH format: 0x + hex
+        return '0x' . bin2hex($sigBin);
     }
 
-    public static function signer(string $hashBin, string $signature): string
+    /**
+     * ethers.verifyTypedData(...)
+     *
+     * @param string $msgHashHex  bytes32 (hex without 0x)
+     * @param string $signature  65 bytes (r+s+v)
+     * @return string            Ethereum address (0x...)
+     */
+    public static function signer(string $msgHashHex, string $signatureHex): string
     {
-        return sSecp256k1::recover(
-            self::digest($hashBin),
-            $signature
-        );
+        $digest = self::digest($msgHashHex);
+        $signatureBin = hex2bin(substr($signatureHex, 2));
+        $pubKey = sSecp256k1::recover($digest, $signatureBin);
+        return sUtils::pubKeyToAddress($pubKey);
     }
 }
