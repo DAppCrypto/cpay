@@ -1,7 +1,7 @@
 <?php
 /**
  * DAppCrypto
- * Website: dappcrypto.io
+ * Website: dappcrypto.org
  * GitHub Website: dappcrypto.github.io
  * GitHub: https://github.com/dappcrypto
  */
@@ -122,12 +122,12 @@ class sUtils
         }
 
         // sTextData
-        if (empty($PDataObj['sTextData'])) {
+        /*if (empty($PDataObj['sTextData'])) {
             return ['error' => 1, 'data' => 'sTextData is empty'];
         }
         if (!is_string($PDataObj['sTextData'])) {
             return ['error' => 1, 'data' => 'sTextData is invalid'];
-        }
+        }*/
 
         // start
         if (empty($PDataObj['start'])) {

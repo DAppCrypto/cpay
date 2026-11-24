@@ -10,7 +10,7 @@ Supports MetaMask, Trust Wallet and popular cryptocurrencies.
 - No KYC / No KYB
 - Crypto payments
 - Wallets: MetaMask, Trust Wallet
-- Currencies: USDT, USDC, ETH, BTC
+- Currencies: USDT, USDC, ETH, BNB
 - Networks: Ethereum, BNB Smart Chain and others
 - Invoice generation
 - Self-custody
@@ -35,13 +35,14 @@ use cpay\CPay;
 $PrivateKey = '...'; // Your private key for aRecipient
 $PDataObj = [
     'aRecipient'=>'0x...', // Your wallet account address (aRecipient)
-    'aRecipientExt'=>'0x...', // Your wallet address for receiving USDT, USDC cryptocurrency
+    'aRecipientExt'=>'0x...', // Your wallet address for receiving USDT/USDC cryptocurrency
+    'start'=>time(),
     'deadline'=>(time()+(60*60*24*365)), // Deadline time seconds UTC
     'nOrder'=>'1', // Order ID
-    'nRToken'=>"1.50", // Amount USDT, USDC
-    'nRType'=>'1', // 1 - USDT, 2 - USDC
-    'sTextData'=>CPay::instance()->getTextData(['success'=>'','error'=>'','return'=>'','Description'=>''])['base64String'],
-    'start'=>time(),
+    'nRToken'=>"1.50", // Amount USDT/USDC
+    'nRType'=>'1', // 1 - USDT/USDC
+    'nTax2'=>'100', // 100 - 1% Tax partner, 0 - 0% Tax partner
+    'aTax2'=>'0x3c3456699945ef1AC1bbb9F53841B670F2205E21', // Partner tax wallet address
 ];
 $DefaultChainId = 1;
 
@@ -121,6 +122,7 @@ Failure to follow these rules may result in **loss of funds**.
 
 ## Versions
 
+- [v1.0.3](https://github.com/DAppCrypto/cpay/releases/tag/v1.0.2) - AML, Tax Partner
 - [v1.0.2](https://github.com/DAppCrypto/cpay/releases/tag/v1.0.2) - Signature update.
 - [v1.0.1](https://github.com/DAppCrypto/cpay/releases/tag/v1.0.1) - The success page example has been updated.
 - [v1.0.0](https://github.com/DAppCrypto/cpay/releases/tag/v1.0.0) - PHP SDK for accepting cryptocurrency payments
@@ -135,7 +137,7 @@ Failure to follow these rules may result in **loss of funds**.
 
 ## Contacts
 
-- Website: https://dappcrypto.io
+- Website: https://dappcrypto.org
 - GitHub Website: https://dappcrypto.github.io
 - Telegram: https://t.me/DAppCryptos
 

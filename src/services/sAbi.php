@@ -1,7 +1,7 @@
 <?php
 /**
  * DAppCrypto
- * Website: dappcrypto.io
+ * Website: dappcrypto.org
  * GitHub Website: dappcrypto.github.io
  * GitHub: https://github.com/dappcrypto
  */

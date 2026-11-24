@@ -1,7 +1,7 @@
 <?php
 /**
  * DAppCrypto
- * Website: dappcrypto.io
+ * Website: dappcrypto.org
  * GitHub Website: dappcrypto.github.io
  * GitHub: https://github.com/dappcrypto
  */
@@ -11,7 +11,7 @@ namespace cpay\services;
 class sPay
 {
     protected $aProof = '0x7a0b927A1f422411EA83733b81C680FAE01b4Fba';
-    protected $apiUrl = 'https://dappcrypto.io';
+    protected $apiUrl = 'https://dappcrypto.org';
     protected $dappUrl = 'https://dappcrypto.github.io';
 
     protected static $instance;
@@ -52,6 +52,7 @@ class sPay
                 $pDataArr = $decode['obj'];
             }
             $orderData['pDataArr'] = $pDataArr;
+            $orderData['PaymentReceiptLink'] = $this->dappUrl.'/?Recipient='.$orderData['aRecipient'].'&nOrder='.$orderData['nOrder'].'&dpage=CPayReceipt&chainid='.$orderData['chain'];
 
             return $orderData;
         } catch (\Exception $e) {
@@ -155,15 +156,35 @@ class sPay
                 return ['error'=> 1, 'data'=> 'PrivateKey or aRecipient'];
             }
 
+            if(empty($PDataObj['nTax2'])){
+                $PDataObj['nTax2'] = '0';
+                $PDataObj['aTax2'] = "0x0000000000000000000000000000000000000000";
+            }
+
+            if(empty($PDataObj['aTax2'])){
+                $PDataObj['nTax2'] = '0';
+                $PDataObj['aTax2'] = "0x0000000000000000000000000000000000000000";
+            }
+
             $objPData = [
-                'nArr' => [$PDataObj['nOrder'], $PDataObj['nRType'], $PDataObj['nRToken'], $PDataObj['start'], $PDataObj['deadline']],
-                'aArr' => [$PDataObj['aRecipient'],$PDataObj['aRecipientExt']],
-                'sArr' => [$PDataObj['sTextData']],
+                'nArr' => [
+                    $PDataObj['nOrder'],
+                    $PDataObj['nRType'],
+                    $PDataObj['nRToken'],
+                    $PDataObj['start'],
+                    $PDataObj['deadline'],
+                    $PDataObj['nTax2']
+                ],
+                'aArr' => [
+                    $PDataObj['aRecipient'],
+                    $PDataObj['aRecipientExt'],
+                    $PDataObj['aTax2']
+                ],
             ];
 
             $bPData = sSign::instance()->getAbiCoderData(
-                ['uint256[]', 'address[]', 'string[]'],
-                [$objPData['nArr'], $objPData['aArr'], $objPData['sArr']]
+                ['uint256[]', 'address[]'],
+                [$objPData['nArr'], $objPData['aArr']]
             );
 
             // Hash
@@ -175,9 +196,9 @@ class sPay
                 return ['error'=> 1, 'data'=> 'AddressAccount != signer'];
             }
 
-            $ToObj = sCoder::base64ToObj($objPData['sArr'][0]);
+            /*$ToObj = sCoder::base64ToObj($objPData['sArr'][0]);
             if($ToObj['error']!=0){ return ['error'=>1, 'data'=>'Text data error']; }
-            $objPData['sArr'][0] = $ToObj['obj'];
+            $objPData['sArr'][0] = $ToObj['obj'];*/
 
             $InvoiceData = [
                 'objPData' => $objPData,
