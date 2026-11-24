@@ -42,7 +42,7 @@ $PDataObj = [
         'nTax2'=>'0', // 100 - 1% Tax partner, 0 - 0% Tax partner
         'aTax2'=>'0x0000000000000000000000000000000000000000', // Partner tax wallet address
 ];
-$DefaultChainId = 42161;
+$DefaultChainId = 1;
 
 $InvoiceData = CPay::instance()->createInvoice($PDataObj, $PrivateKey, $DefaultChainId);
 if($InvoiceData['error']!=0){
